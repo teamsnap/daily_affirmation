@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "daily_affirmation"
   spec.version       = DailyAffirmation::VERSION
   spec.authors       = ["Shane Emmons"]
-  spec.email         = ["support@teamsnap.com"]
+  spec.email         = ["oss@teamsnap.com"]
   spec.description   = "A simple library for external validations of POROs"
   spec.summary       = "A simple library for external validations of POROs"
   spec.homepage      = "https://github.com/teamsnap/daily_affirmation"
