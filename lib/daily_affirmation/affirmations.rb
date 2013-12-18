@@ -9,9 +9,18 @@ module DailyAffirmation
     end
 
     def valid?
-      affirmations
-        .map { |affirmation| affirm(affirmation) }
-        .all?
+      validate[0]
+    end
+
+    def validate
+      @validate ||= [
+        affirmations.map(&:first).all?,
+        affirmations.map(&:last).compact
+      ]
+    end
+
+    def error_messages
+      validate[1]
     end
 
     private
@@ -19,7 +28,8 @@ module DailyAffirmation
     attr_accessor :object
 
     def affirmations
-      self.class.affirmations
+      @affirmations ||= self.class.affirmations
+        .map { |affirmation| affirm(affirmation) }
     end
 
     def affirm(affirmation)
@@ -30,11 +40,19 @@ module DailyAffirmation
     end
 
     def affirm_presence_of(attribute, _ = {})
-      present?(attribute)
+      if present?(attribute)
+        [true, nil]
+      else
+        [false, "#{attribute} is not present"]
+      end
     end
 
     def affirm_inclusion_of(attribute, list: [])
-      list.include?(object.send(attribute))
+      if list.include?(object.send(attribute))
+        [true, nil]
+      else
+        [false, "#{attribute} is not included in #{list}"]
+      end
     end
 
     def blank?(attribute)
