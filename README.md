@@ -4,6 +4,10 @@ A simple library for external validations of POROs
 
 ![Daily Affirmation](http://i.imgur.com/rdvgFAK.jpg)
 
+There are currently two ways to validate objects in Rails, ActiveRecord based validates and ActiveModel based validations. Both require them to be placed directly into your models, making for more heavy weight, less flexible code. DailyAffirmation allows you to validate your models (or any PORO) externally.
+
+By validating objects externally, you can have different validations depending on your code path. Perhaps you require a password for a User object when it's being created, but do not need it again when it's being updated. Simply create a UserCreationAffirmation and a UserChangeAffirmation with the correct validations.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -35,6 +39,11 @@ Or install it yourself as:
 
     team1 = OpenStruct.new(:name => "", :status_cd => 3)
     TeamAffirmation.new(team1).valid? #=> false
+    
+## Roadmap
+
+- Provide all the validations ActiveModel does
+- Add a way to build custom validations (example validating a password)
 
 ## Contributing
 
