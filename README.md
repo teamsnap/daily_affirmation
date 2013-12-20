@@ -1,5 +1,6 @@
 # DailyAffirmation
 
+[![Semaphore](https://semaphoreapp.com/api/v1/projects/7268def52c792e50bfc60e1b1a6e905ed4e2a80d/118940/shields_badge.png)](https://semaphoreapp.com/minter/daily_affirmation)
 [![Code Climate](https://codeclimate.com/github/teamsnap/daily_affirmation.png)](https://codeclimate.com/github/teamsnap/daily_affirmation)
 
 A simple library for external validations of POROs
