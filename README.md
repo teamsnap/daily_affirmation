@@ -1,5 +1,7 @@
 # DailyAffirmation
 
+[![Code Climate](https://codeclimate.com/github/teamsnap/daily_affirmation.png)](https://codeclimate.com/github/teamsnap/daily_affirmation)
+
 A simple library for external validations of POROs
 
 ![Daily Affirmation](http://i.imgur.com/rdvgFAK.jpg)
