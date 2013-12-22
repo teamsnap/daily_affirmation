@@ -95,6 +95,14 @@ module DailyAffirmation
       end
     end
 
+    def affirm_length_of(attribute, range: 0..0)
+      if range.include?(object.send(attribute).size)
+        [true, nil]
+      else
+        [false, "#{attribute} is the wrong length (allowed: #{range})"]
+      end
+    end
+
     def blank?(attribute)
       value = object.send(attribute)
       case value
@@ -141,6 +149,12 @@ module DailyAffirmation
       def affirms_format_of(attribute, regex: //)
         affirmations << {
           :attribute => attribute, :type => :format, :regex => regex
+        }
+      end
+
+      def affirms_length_of(attribute, range: 0..0)
+        affirmations << {
+          :attribute => attribute, :type => :length, :range => range
         }
       end
 

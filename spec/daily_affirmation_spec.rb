@@ -136,6 +136,36 @@ describe DailyAffirmation do
     end
   end
 
+  describe ".affirms_length_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_length_of :name, :range => 1..10
+      end
+    end
+
+    it "passes validation if the attribute's size is within range" do
+      obj = double(:name => "Bobby")
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "fails validation if the attribute's size is lower than range" do
+      obj = double(:name => "")
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+    it "fails validation if the attribute's size is higher than range" do
+      obj = double(:name => "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+  end
+
   describe ".affirms_acceptance_of" do
     let(:cls) do
       Class.new do
