@@ -33,6 +33,37 @@ describe DailyAffirmation do
     end
   end
 
+  describe ".affirms_absence_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_absence_of :name
+      end
+    end
+
+    it "passes validation if attribute is nil" do
+      obj = double(:name => nil)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "passes validation if attribute is empty" do
+      obj = double(:name => " ")
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "fails validation if attribute is present" do
+      obj = double(:name => :foo)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+  end
+
   describe ".affirms_inclusion_of" do
     let(:cls) do
       Class.new do

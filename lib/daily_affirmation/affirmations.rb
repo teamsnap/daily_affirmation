@@ -47,6 +47,14 @@ module DailyAffirmation
       end
     end
 
+    def affirm_absence_of(attribute, _ = {})
+      if present?(attribute)
+        [false, "#{attribute} must be blank"]
+      else
+        [true, nil]
+      end
+    end
+
     def affirm_inclusion_of(attribute, list: [])
       if list.include?(object.send(attribute))
         [true, nil]
@@ -72,6 +80,10 @@ module DailyAffirmation
     module ClassMethods
       def affirms_presence_of(attribute)
         affirmations << {:attribute => attribute, :type => :presence}
+      end
+
+      def affirms_absence_of(attribute)
+        affirmations << {:attribute => attribute, :type => :absence}
       end
 
       def affirms_inclusion_of(attribute, list: [])
