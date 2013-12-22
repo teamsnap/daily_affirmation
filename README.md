@@ -31,21 +31,23 @@ Or install it yourself as:
 
 ## Usage
 
-    require "daily_affirmations"
+```ruby
+require "daily_affirmations"
 
-    class Team
-      attr_accessor :name, :status_cd
-    end
+class Team
+  attr_accessor :name, :status_cd
+end
 
-    class TeamAffirmation
-      include DailyAffirmation.affirmations
+class TeamAffirmation
+  include DailyAffirmation.affirmations
 
-      affirms_presence_of :name
-      affirms_inclusion_of :status_cd, :list => 0..2
-    end
+  affirms_presence_of :name
+  affirms_inclusion_of :status_cd, :list => 0..2
+end
 
-    team1 = OpenStruct.new(:name => "", :status_cd => 3)
-    TeamAffirmation.new(team1).valid? #=> false
+team1 = OpenStruct.new(:name => "", :status_cd => 3)
+TeamAffirmation.new(team1).valid? #=> false
+```
     
 ## Roadmap
 
