@@ -158,8 +158,33 @@ describe DailyAffirmation do
       affirmation = cls.new(obj)
       expect(affirmation).to_not be_valid
     end
+
     it "fails validation if the attribute's size is higher than range" do
       obj = double(:name => "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+  end
+
+  describe ".affirms_numericality_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_numericality_of :age
+      end
+    end
+
+    it "passes validation if the attribute is a Numeric" do
+      obj = double(:age => 1.0)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "fails validation if the attribute is not a Numeric" do
+      obj = double(:age => "Bobby")
 
       affirmation = cls.new(obj)
       expect(affirmation).to_not be_valid

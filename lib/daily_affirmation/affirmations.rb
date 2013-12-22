@@ -103,6 +103,14 @@ module DailyAffirmation
       end
     end
 
+    def affirm_numericality_of(attribute, _ = {})
+      if object.send(attribute).is_a?(Numeric)
+        [true, nil]
+      else
+        [false, "#{attribute} is not a number"]
+      end
+    end
+
     def blank?(attribute)
       value = object.send(attribute)
       case value
@@ -156,6 +164,10 @@ module DailyAffirmation
         affirmations << {
           :attribute => attribute, :type => :length, :range => range
         }
+      end
+
+      def affirms_numericality_of(attribute)
+        affirmations << {:attribute => attribute, :type => :numericality}
       end
 
       def affirmations
