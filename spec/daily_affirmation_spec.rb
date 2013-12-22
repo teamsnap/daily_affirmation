@@ -88,6 +88,37 @@ describe DailyAffirmation do
     end
   end
 
+  describe ".affirms_acceptance_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_acceptance_of :eula
+      end
+    end
+
+    it "passes validation if attribute is not nil/false" do
+      obj = double(:eula => true)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "fails validation if attribute is nil" do
+      obj = double(:eula => nil)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+
+    it "fails validation if attribute is false" do
+      obj = double(:eula => false)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+  end
+
   describe "#validate" do
     let(:cls) do
       Class.new do

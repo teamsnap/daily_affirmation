@@ -63,6 +63,14 @@ module DailyAffirmation
       end
     end
 
+    def affirm_acceptance_of(attribute, _ = {})
+      if object.send(attribute)
+        [true, nil]
+      else
+        [false, "#{attribute} must be accepted"]
+      end
+    end
+
     def blank?(attribute)
       value = object.send(attribute)
       case value
@@ -90,6 +98,10 @@ module DailyAffirmation
         affirmations << {
           :attribute => attribute, :type => :inclusion, :list => list
         }
+      end
+
+      def affirms_acceptance_of(attribute)
+        affirmations << {:attribute => attribute, :type => :acceptance}
       end
 
       def affirmations
