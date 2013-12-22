@@ -87,6 +87,14 @@ module DailyAffirmation
       end
     end
 
+    def affirm_format_of(attribute, regex: //)
+      if regex.match(object.send(attribute))
+        [true, nil]
+      else
+        [false, "#{attribute} is invalid"]
+      end
+    end
+
     def blank?(attribute)
       value = object.send(attribute)
       case value
@@ -127,6 +135,12 @@ module DailyAffirmation
       def affirms_exclusion_of(attribute, list: [])
         affirmations << {
           :attribute => attribute, :type => :exclusion, :list => list
+        }
+      end
+
+      def affirms_format_of(attribute, regex: //)
+        affirmations << {
+          :attribute => attribute, :type => :format, :regex => regex
         }
       end
 

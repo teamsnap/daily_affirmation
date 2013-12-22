@@ -112,6 +112,30 @@ describe DailyAffirmation do
     end
   end
 
+  describe ".affirms_format_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_format_of :name, :regex => /Bobby/
+      end
+    end
+
+    it "passes validation if the attribute matches the format" do
+      obj = double(:name => "Bobby Tabbles")
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "fails validation if the attribute doesn't match the format" do
+      obj = double(:name => "Tommy Tabbles")
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+  end
+
   describe ".affirms_acceptance_of" do
     let(:cls) do
       Class.new do
