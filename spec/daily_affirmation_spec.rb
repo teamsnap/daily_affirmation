@@ -119,6 +119,30 @@ describe DailyAffirmation do
     end
   end
 
+  describe ".affirms_confirmation_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_confirmation_of :password
+      end
+    end
+
+    it "passes validation if the attributes match" do
+      obj = double(:password => 1, :password_confirmation => 1)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "fails validation if the attributes don't match" do
+      obj = double(:password => 1, :password_confirmation => 2)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+  end
+
   describe "#validate" do
     let(:cls) do
       Class.new do

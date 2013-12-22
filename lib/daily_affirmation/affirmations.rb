@@ -71,6 +71,14 @@ module DailyAffirmation
       end
     end
 
+    def affirm_confirmation_of(attribute, _ = {})
+      if object.send(attribute) == object.send("#{attribute}_confirmation")
+        [true, nil]
+      else
+        [false, "#{attribute} doesn't match confirmation"]
+      end
+    end
+
     def blank?(attribute)
       value = object.send(attribute)
       case value
@@ -102,6 +110,10 @@ module DailyAffirmation
 
       def affirms_acceptance_of(attribute)
         affirmations << {:attribute => attribute, :type => :acceptance}
+      end
+
+      def affirms_confirmation_of(attribute)
+        affirmations << {:attribute => attribute, :type => :confirmation}
       end
 
       def affirmations
