@@ -111,7 +111,7 @@ describe DailyAffirmation do
       affirmation = cls.new(obj)
 
       messages = affirmation.validate[1]
-      expect(messages).to include("name is not present")
+      expect(messages).to include("name can't be blank")
       expect(messages).to include("age is not included in 13..18")
     end
   end
@@ -156,7 +156,7 @@ describe DailyAffirmation do
       affirmation = cls.new(obj)
       messages = affirmation.error_messages
 
-      expect(messages).to include("name is not present")
+      expect(messages).to include("name can't be blank")
       expect(messages).to include("age is not included in 13..18")
     end
 

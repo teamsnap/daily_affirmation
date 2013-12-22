@@ -43,7 +43,7 @@ module DailyAffirmation
       if present?(attribute)
         [true, nil]
       else
-        [false, "#{attribute} is not present"]
+        [false, "#{attribute} can't be blank"]
       end
     end
 
