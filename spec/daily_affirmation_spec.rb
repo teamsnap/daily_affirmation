@@ -88,6 +88,30 @@ describe DailyAffirmation do
     end
   end
 
+  describe ".affirms_exclusion_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_exclusion_of :age, :list => 13..18
+      end
+    end
+
+    it "passes validation if attribute is not in the list" do
+      obj = double(:age => 12)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
+    end
+
+    it "fails validation if attribute is in the list" do
+      obj = double(:age => 13)
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to_not be_valid
+    end
+  end
+
   describe ".affirms_acceptance_of" do
     let(:cls) do
       Class.new do

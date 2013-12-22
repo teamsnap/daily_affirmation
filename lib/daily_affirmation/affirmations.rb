@@ -63,6 +63,14 @@ module DailyAffirmation
       end
     end
 
+    def affirm_exclusion_of(attribute, list: [])
+      if list.include?(object.send(attribute))
+        [false, "#{attribute} is reserved"]
+      else
+        [true, nil]
+      end
+    end
+
     def affirm_acceptance_of(attribute, _ = {})
       if object.send(attribute)
         [true, nil]
@@ -114,6 +122,12 @@ module DailyAffirmation
 
       def affirms_confirmation_of(attribute)
         affirmations << {:attribute => attribute, :type => :confirmation}
+      end
+
+      def affirms_exclusion_of(attribute, list: [])
+        affirmations << {
+          :attribute => attribute, :type => :exclusion, :list => list
+        }
       end
 
       def affirmations
