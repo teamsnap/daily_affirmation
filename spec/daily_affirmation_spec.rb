@@ -261,7 +261,7 @@ describe DailyAffirmation do
       affirmation = cls.new(obj)
 
       is_valid = affirmation.validate[0]
-      expect(is_valid).to eq(true)
+      expect(is_valid).to be true
     end
 
     it "returns validation error messages as the second result" do
