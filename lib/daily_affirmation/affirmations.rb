@@ -36,79 +36,47 @@ module DailyAffirmation
       method = "affirm_#{affirmation[:type]}_of"
       attribute = affirmation[:attribute]
       args = affirmation.reject { |k, _| [:type, :attribute].include?(k) }
-      send(method, attribute, args)
+      if send(method, attribute, args)
+        [true, nil]
+      else
+        [false, error_message_for(affirmation[:type], attribute, args)]
+      end
     end
 
     def affirm_presence_of(attribute, _ = {})
-      if present?(attribute)
-        [true, nil]
-      else
-        [false, "#{attribute} can't be blank"]
-      end
+      present?(attribute)
     end
 
     def affirm_absence_of(attribute, _ = {})
-      if present?(attribute)
-        [false, "#{attribute} must be blank"]
-      else
-        [true, nil]
-      end
+      blank?(attribute)
     end
 
     def affirm_inclusion_of(attribute, list: [])
-      if list.include?(object.send(attribute))
-        [true, nil]
-      else
-        [false, "#{attribute} is not included in #{list}"]
-      end
+      list.include?(object.send(attribute))
     end
 
     def affirm_exclusion_of(attribute, list: [])
-      if list.include?(object.send(attribute))
-        [false, "#{attribute} is reserved"]
-      else
-        [true, nil]
-      end
+      !list.include?(object.send(attribute))
     end
 
     def affirm_acceptance_of(attribute, _ = {})
-      if object.send(attribute)
-        [true, nil]
-      else
-        [false, "#{attribute} must be accepted"]
-      end
+      !!object.send(attribute)
     end
 
     def affirm_confirmation_of(attribute, _ = {})
-      if object.send(attribute) == object.send("#{attribute}_confirmation")
-        [true, nil]
-      else
-        [false, "#{attribute} doesn't match confirmation"]
-      end
+      object.send(attribute) == object.send("#{attribute}_confirmation")
     end
 
     def affirm_format_of(attribute, regex: //)
-      if regex.match(object.send(attribute))
-        [true, nil]
-      else
-        [false, "#{attribute} is invalid"]
-      end
+      !!regex.match(object.send(attribute))
     end
 
     def affirm_length_of(attribute, range: 0..0)
-      if range.include?(object.send(attribute).size)
-        [true, nil]
-      else
-        [false, "#{attribute} is the wrong length (allowed: #{range})"]
-      end
+      range.include?(object.send(attribute).size)
     end
 
     def affirm_numericality_of(attribute, _ = {})
-      if object.send(attribute).is_a?(Numeric)
-        [true, nil]
-      else
-        [false, "#{attribute} is not a number"]
-      end
+      object.send(attribute).is_a?(Numeric)
     end
 
     def blank?(attribute)
@@ -123,6 +91,31 @@ module DailyAffirmation
 
     def present?(attribute)
       !blank?(attribute)
+    end
+
+    def error_message_for(type, attribute, opts = {})
+      case type
+      when :presence
+        "#{attribute} can't be blank"
+      when :absence
+        "#{attribute} must be blank"
+      when :inclusion
+        "#{attribute} is not included in #{opts[:list]}"
+      when :exclusion
+        "#{attribute} is reserved"
+      when :acceptance
+        "#{attribute} must be accepted"
+      when :confirmation
+        "#{attribute} doesn't match confirmation"
+      when :format
+        "#{attribute} is invalid"
+      when :length
+        "#{attribute} is the wrong length (allowed #{opts[:range]})"
+      when :numericality
+        "#{attribute} is not a number"
+      else
+        "#{attribute} failed validation"
+      end
     end
 
     module ClassMethods
