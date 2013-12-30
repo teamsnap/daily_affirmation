@@ -56,7 +56,7 @@ TeamAffirmation.new(team1).valid? #=> false
 
 ## Contributing
 
-1. Fork it
+1. Fork it ( http://github.com/teamsnap/daily_affirmation/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
