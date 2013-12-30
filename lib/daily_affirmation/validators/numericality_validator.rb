@@ -8,7 +8,9 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} is not a number"
+        @error_message ||= i18n_error_message(
+          :numericality, :default => "#{attribute} is not a number"
+        )
       end
     end
   end

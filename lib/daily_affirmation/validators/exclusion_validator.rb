@@ -9,7 +9,9 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} is reserved"
+        @error_message ||= i18n_error_message(
+          :exclusion, :default => "#{attribute} is reserved"
+        )
       end
     end
   end

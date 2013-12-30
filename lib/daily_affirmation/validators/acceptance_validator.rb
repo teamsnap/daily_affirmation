@@ -8,7 +8,9 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} must be accepted"
+        @error_message ||= i18n_error_message(
+          :acceptance, :default => "#{attribute} must be accepted"
+        )
       end
     end
   end
