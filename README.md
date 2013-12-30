@@ -51,8 +51,8 @@ TeamAffirmation.new(team1).valid? #=> false
     
 ## Roadmap
 
-- Provide all the validations ActiveModel does
-- Add a way to build custom validations (example validating a password)
+- Allow error messages to use i18n.
+- Add a way to build custom validations (example validating a password).
 
 ## Contributing
 
