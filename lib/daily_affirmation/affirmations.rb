@@ -33,89 +33,14 @@ module DailyAffirmation
     end
 
     def affirm(affirmation)
-      method = "affirm_#{affirmation[:type]}_of"
+      type = affirmation[:type]
       attribute = affirmation[:attribute]
       args = affirmation.reject { |k, _| [:type, :attribute].include?(k) }
-      if send(method, attribute, args)
-        [true, nil]
-      else
-        [false, error_message_for(affirmation[:type], attribute, args)]
-      end
-    end
 
-    def affirm_presence_of(attribute, _ = {})
-      present?(attribute)
-    end
-
-    def affirm_absence_of(attribute, _ = {})
-      blank?(attribute)
-    end
-
-    def affirm_inclusion_of(attribute, list: [])
-      list.include?(object.send(attribute))
-    end
-
-    def affirm_exclusion_of(attribute, list: [])
-      !list.include?(object.send(attribute))
-    end
-
-    def affirm_acceptance_of(attribute, _ = {})
-      !!object.send(attribute)
-    end
-
-    def affirm_confirmation_of(attribute, _ = {})
-      object.send(attribute) == object.send("#{attribute}_confirmation")
-    end
-
-    def affirm_format_of(attribute, regex: //)
-      !!regex.match(object.send(attribute))
-    end
-
-    def affirm_length_of(attribute, range: 0..0)
-      range.include?(object.send(attribute).size)
-    end
-
-    def affirm_numericality_of(attribute, _ = {})
-      object.send(attribute).is_a?(Numeric)
-    end
-
-    def blank?(attribute)
-      value = object.send(attribute)
-      case value
-      when String
-        value !~ /[^[:space:]]/
-      else
-        value.respond_to?(:empty?) ? value.empty? : !value
-      end
-    end
-
-    def present?(attribute)
-      !blank?(attribute)
-    end
-
-    def error_message_for(type, attribute, opts = {})
-      case type
-      when :presence
-        "#{attribute} can't be blank"
-      when :absence
-        "#{attribute} must be blank"
-      when :inclusion
-        "#{attribute} is not included in #{opts[:list]}"
-      when :exclusion
-        "#{attribute} is reserved"
-      when :acceptance
-        "#{attribute} must be accepted"
-      when :confirmation
-        "#{attribute} doesn't match confirmation"
-      when :format
-        "#{attribute} is invalid"
-      when :length
-        "#{attribute} is the wrong length (allowed #{opts[:range]})"
-      when :numericality
-        "#{attribute} is not a number"
-      else
-        "#{attribute} failed validation"
-      end
+      validator = Object.const_get(
+        "DailyAffirmation::Validators::#{type.to_s.capitalize}Validator"
+      )
+      validator.new(object, attribute, args).affirm
     end
 
     module ClassMethods
