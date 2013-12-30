@@ -9,7 +9,9 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} must be blank"
+        @error_message ||= i18n_error_message(
+          :absence, :default => "#{attribute} must be blank"
+        )
       end
     end
   end

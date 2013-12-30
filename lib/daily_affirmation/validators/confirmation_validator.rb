@@ -8,7 +8,9 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} doesn't match confirmation"
+        @error_message ||= i18n_error_message(
+          :confirmation, :default => "#{attribute} doesn't match confirmation"
+        )
       end
     end
   end

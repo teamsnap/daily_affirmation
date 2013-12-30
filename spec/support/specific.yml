@@ -1,0 +1,6 @@
+en:
+  daily_affirmation:
+    errors:
+      messages:
+        none:
+          age: must include age yo!

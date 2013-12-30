@@ -8,7 +8,9 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} can't be blank"
+        @error_message ||= i18n_error_message(
+          :presence, :default => "#{attribute} can't be blank"
+        )
       end
 
       private

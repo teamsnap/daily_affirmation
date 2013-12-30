@@ -8,7 +8,9 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} is invalid"
+        @error_message ||= i18n_error_message(
+          :format, :default => "#{attribute} is invalid"
+        )
       end
     end
   end

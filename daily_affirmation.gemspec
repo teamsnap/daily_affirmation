@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 3.0.0.beta1"
+  spec.add_development_dependency "i18n", "~> 0.6.9"
 end

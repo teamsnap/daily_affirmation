@@ -8,7 +8,10 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} is the wrong length (allowed #{opts[:range]})"
+        @error_message ||= i18n_error_message(
+          :length,
+          :default => "#{attribute} is the wrong length (allowed #{opts[:range]})"
+        )
       end
     end
   end

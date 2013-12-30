@@ -16,11 +16,28 @@ module DailyAffirmation
     end
 
     def error_message
-      raise StandardError, "must implement #error_message"
+      i18n_error_message(:none)
     end
 
     private
 
     attr_accessor :object, :attribute, :value, :opts
+
+    def i18n_error_message(type, default: "#{attribute} failed validation")
+      if defined?(I18n)
+        args = opts.merge(
+          {
+            :default => [
+              :"daily_affirmation.errors.messages.#{type}", default
+            ],
+            :attribute => attribute,
+            :value => value
+          }
+        )
+        I18n.t(:"daily_affirmation.errors.messages.#{type}.#{attribute}", args)
+      else
+        default
+      end
+    end
   end
 end

@@ -8,7 +8,10 @@ module DailyAffirmation
       end
 
       def error_message
-        @error_message ||= "#{attribute} is not included in #{opts[:list]}"
+        @error_message ||= i18n_error_message(
+          :inclusion,
+          :default => "#{attribute} is not included in #{opts[:list]}"
+        )
       end
     end
   end
