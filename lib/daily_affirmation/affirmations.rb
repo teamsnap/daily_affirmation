@@ -44,18 +44,8 @@ module DailyAffirmation
     end
 
     module ClassMethods
-      def affirms_presence_of(attribute)
-        affirmations << {:attribute => attribute, :type => :presence}
-      end
-
       def affirms_absence_of(attribute)
         affirmations << {:attribute => attribute, :type => :absence}
-      end
-
-      def affirms_inclusion_of(attribute, list: [])
-        affirmations << {
-          :attribute => attribute, :type => :inclusion, :list => list
-        }
       end
 
       def affirms_acceptance_of(attribute)
@@ -78,6 +68,12 @@ module DailyAffirmation
         }
       end
 
+      def affirms_inclusion_of(attribute, list: [])
+        affirmations << {
+          :attribute => attribute, :type => :inclusion, :list => list
+        }
+      end
+
       def affirms_length_of(attribute, range: 0..0)
         affirmations << {
           :attribute => attribute, :type => :length, :range => range
@@ -86,6 +82,10 @@ module DailyAffirmation
 
       def affirms_numericality_of(attribute)
         affirmations << {:attribute => attribute, :type => :numericality}
+      end
+
+      def affirms_presence_of(attribute)
+        affirmations << {:attribute => attribute, :type => :presence}
       end
 
       def affirmations

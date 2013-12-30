@@ -30,7 +30,7 @@ describe DailyAffirmation do
     end
   end
 
-  describe "#valid" do
+  describe "#valid?" do
     let(:cls) do
       Class.new do
         include DailyAffirmation.affirmations
@@ -80,6 +80,38 @@ describe DailyAffirmation do
       messages = affirmation.error_messages
 
       expect(messages).to eq([])
+    end
+  end
+
+  describe ".affirms_*_of" do
+    let(:cls) do
+      Class.new do
+        include DailyAffirmation.affirmations
+
+        affirms_absence_of :conflicts
+        affirms_acceptance_of :eula
+        affirms_confirmation_of :password
+        affirms_exclusion_of :age, :list => 13..18
+        affirms_format_of :name, :regex => /Bobby/
+        affirms_inclusion_of :age, :list => 1..21
+        affirms_length_of :password, :range => 8..40
+        affirms_numericality_of :age
+        affirms_presence_of :name
+      end
+    end
+
+    it "correct sets up affirmations" do
+      obj = double(
+        :conflicts => nil,
+        :eula => true,
+        :password => "test1234",
+        :password_confirmation => "test1234",
+        :age => 19,
+        :name => "Bobby Tabbles"
+      )
+
+      affirmation = cls.new(obj)
+      expect(affirmation).to be_valid
     end
   end
 end
