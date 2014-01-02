@@ -114,4 +114,20 @@ describe DailyAffirmation do
       expect(affirmation).to be_valid
     end
   end
+
+  it "allows each affirmation to be skipped via an :if option" do
+    cls = Class.new do
+      include DailyAffirmation.affirmations
+
+      affirms_presence_of :name, :if => Proc.new { object.age > 10 }
+    end
+
+    obj1 = double(:name => nil, :age => 1)
+    obj2 = double(:name => nil, :age => 11)
+
+    affirmation1 = cls.new(obj1)
+    affirmation2 = cls.new(obj2)
+    expect(affirmation1).to be_valid
+    expect(affirmation2).to_not be_valid
+  end
 end

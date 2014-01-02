@@ -37,55 +37,75 @@ module DailyAffirmation
       attribute = affirmation[:attribute]
       args = affirmation.reject { |k, _| [:type, :attribute].include?(k) }
 
-      validator = Object.const_get(
-        "DailyAffirmation::Validators::#{type.to_s.capitalize}Validator"
-      )
-      validator.new(object, attribute, args).affirm
+      process_validation = if args.include?(:if)
+                             instance_eval(&args[:if])
+                           else
+                             true
+                           end
+
+      if process_validation
+        validator = Object.const_get(
+          "DailyAffirmation::Validators::#{type.to_s.capitalize}Validator"
+        )
+        validator.new(object, attribute, args).affirm
+      else
+        [true, nil]
+      end
     end
 
     module ClassMethods
-      def affirms_absence_of(attribute)
-        affirmations << {:attribute => attribute, :type => :absence}
+      def affirms_absence_of(attribute, opts = {})
+        affirmations << {
+          :attribute => attribute, :type => :absence
+        }.merge(opts)
       end
 
-      def affirms_acceptance_of(attribute)
-        affirmations << {:attribute => attribute, :type => :acceptance}
+      def affirms_acceptance_of(attribute, opts = {})
+        affirmations << {
+          :attribute => attribute, :type => :acceptance
+        }.merge(opts)
       end
 
-      def affirms_confirmation_of(attribute)
-        affirmations << {:attribute => attribute, :type => :confirmation}
+      def affirms_confirmation_of(attribute, opts = {})
+        affirmations << {
+          :attribute => attribute, :type => :confirmation
+        }.merge(opts)
       end
 
-      def affirms_exclusion_of(attribute, list: [])
+      def affirms_exclusion_of(attribute, opts = {}, list: [])
         affirmations << {
           :attribute => attribute, :type => :exclusion, :list => list
-        }
+        }.merge(opts)
       end
 
-      def affirms_format_of(attribute, regex: //)
+      def affirms_format_of(attribute, opts = {}, regex: //)
         affirmations << {
           :attribute => attribute, :type => :format, :regex => regex
-        }
+        }.merge(opts)
       end
 
-      def affirms_inclusion_of(attribute, list: [])
+      def affirms_inclusion_of(attribute, opts = {}, list: [])
         affirmations << {
           :attribute => attribute, :type => :inclusion, :list => list
-        }
+        }.merge(opts)
       end
 
-      def affirms_length_of(attribute, range: 0..0)
+      def affirms_length_of(attribute, opts = {}, range: 0..0)
         affirmations << {
           :attribute => attribute, :type => :length, :range => range
-        }
+        }.merge(opts)
       end
 
-      def affirms_numericality_of(attribute)
-        affirmations << {:attribute => attribute, :type => :numericality}
+      def affirms_numericality_of(attribute, opts = {})
+        affirmations << {
+          :attribute => attribute, :type => :numericality
+        }.merge(opts)
       end
 
-      def affirms_presence_of(attribute)
-        affirmations << {:attribute => attribute, :type => :presence}
+      def affirms_presence_of(attribute, opts = {})
+        affirmations << {
+          :attribute => attribute, :type => :presence
+        }.merge(opts)
       end
 
       def affirmations
