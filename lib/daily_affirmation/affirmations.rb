@@ -72,27 +72,31 @@ module DailyAffirmation
         }.merge(opts)
       end
 
-      def affirms_exclusion_of(attribute, opts = {}, list: [])
+      def affirms_exclusion_of(attribute, opts = {})
+        opts[:list] ||= []
         affirmations << {
-          :attribute => attribute, :type => :exclusion, :list => list
+          :attribute => attribute, :type => :exclusion
         }.merge(opts)
       end
 
-      def affirms_format_of(attribute, opts = {}, regex: //)
+      def affirms_format_of(attribute, opts = {})
+        opts[:regex] ||= //
         affirmations << {
-          :attribute => attribute, :type => :format, :regex => regex
+          :attribute => attribute, :type => :format
         }.merge(opts)
       end
 
-      def affirms_inclusion_of(attribute, opts = {}, list: [])
+      def affirms_inclusion_of(attribute, opts = {})
+        opts[:list] ||= []
         affirmations << {
-          :attribute => attribute, :type => :inclusion, :list => list
+          :attribute => attribute, :type => :inclusion
         }.merge(opts)
       end
 
-      def affirms_length_of(attribute, opts = {}, range: 0..0)
+      def affirms_length_of(attribute, opts = {})
+        opts[:range] ||= 0..0
         affirmations << {
-          :attribute => attribute, :type => :length, :range => range
+          :attribute => attribute, :type => :length
         }.merge(opts)
       end
 
