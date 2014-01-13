@@ -130,4 +130,20 @@ describe DailyAffirmation do
     expect(affirmation1).to be_valid
     expect(affirmation2).to_not be_valid
   end
+
+  it "allows each affirmation to be inverted via an :inverse option" do
+    cls = Class.new do
+      include DailyAffirmation.affirmations
+
+      affirms_presence_of :name, :inverse => true
+    end
+
+    obj1 = double(:name => nil)
+    obj2 = double(:name => :foo)
+
+    affirmation1 = cls.new(obj1)
+    affirmation2 = cls.new(obj2)
+    expect(affirmation1).to be_valid
+    expect(affirmation2).to_not be_valid
+  end
 end

@@ -47,7 +47,13 @@ module DailyAffirmation
         validator = Object.const_get(
           "DailyAffirmation::Validators::#{type.to_s.capitalize}Validator"
         )
-        validator.new(object, attribute, args).affirm
+        results = validator.new(object, attribute, args).affirm
+
+        if args.fetch(:inverse, false)
+          [!results[0], results[1]]
+        else
+          results
+        end
       else
         [true, nil]
       end
