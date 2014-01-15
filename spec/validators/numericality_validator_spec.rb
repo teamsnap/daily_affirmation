@@ -4,6 +4,13 @@ require_relative "../../lib/daily_affirmation/validators/numericality_validator"
 describe "NumericalityValidator" do
   subject { DailyAffirmation::Validators::NumericalityValidator }
 
+  it "passes validation if the arribute is nil" do
+    obj = double(:age => nil)
+
+    validator = subject.new(obj, :age)
+    expect(validator).to be_valid
+  end
+
   it "passes validation if the attribute is a Numeric" do
     obj = double(:age => 1.0)
 

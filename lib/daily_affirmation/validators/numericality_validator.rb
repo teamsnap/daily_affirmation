@@ -4,7 +4,7 @@ module DailyAffirmation
   module Validators
     class NumericalityValidator < Validator
       def valid?
-        @valid ||= numeric? && greater_than? && less_than?
+        @valid ||= value ? numeric? && greater_than? && less_than? : true
       end
 
       def error_message
@@ -16,23 +16,23 @@ module DailyAffirmation
       private
 
       def numeric?
-        value.is_a?(Numeric)
+        @numeric ||= value.is_a?(Numeric)
       end
 
       def greater_than?
-        if gt = opts[:greater_than]
-          value > gt
-        else
-          true
-        end
+        @greater_than ||= if numeric? && gt = opts[:greater_than]
+                            value > gt
+                          else
+                            true
+                          end
       end
 
       def less_than?
-        if lt = opts[:less_than]
-          value < lt
-        else
-          true
-        end
+        @less_than ||= if numeric? && lt = opts[:less_than]
+                         value < lt
+                       else
+                         true
+                       end
       end
 
       def default_error_message
