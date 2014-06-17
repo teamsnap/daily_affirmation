@@ -97,6 +97,9 @@ describe DailyAffirmation do
         affirms_length_of :password, :range => 8..40
         affirms_numericality_of :age
         affirms_presence_of :name
+        affirms :name, :proc => Proc.new { |object|
+          object.name == "Bobby Tabbles"
+        }
       end
     end
 

@@ -118,6 +118,12 @@ module DailyAffirmation
         }.merge(opts)
       end
 
+      def affirms(attribute, opts = {})
+        affirmations << {
+          :attribute => attribute, :type => :custom
+        }.merge(opts)
+      end
+
       def affirmations
         @affirmations ||= []
       end
