@@ -78,6 +78,13 @@ module DailyAffirmation
         }.merge(opts)
       end
 
+      def affirms_equality_of(attribute, opts = {})
+        opts[:value] ||= ""
+        affirmations << {
+          :attribute => attribute, :type => :equality
+        }.merge(opts)
+      end
+
       def affirms_exclusion_of(attribute, opts = {})
         opts[:list] ||= []
         affirmations << {

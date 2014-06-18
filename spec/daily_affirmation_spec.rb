@@ -91,6 +91,7 @@ describe DailyAffirmation do
         affirms_absence_of :conflicts
         affirms_acceptance_of :eula
         affirms_confirmation_of :password
+        affirms_equality_of :name, :value => "Bobby Tabbles"
         affirms_exclusion_of :age, :list => 13..18
         affirms_format_of :name, :regex => /Bobby/
         affirms_inclusion_of :age, :list => 1..21
