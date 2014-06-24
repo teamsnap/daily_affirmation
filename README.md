@@ -1,7 +1,7 @@
 # DailyAffirmation
 
 [![Gem Version](https://badge.fury.io/rb/daily_affirmation.png)](http://badge.fury.io/rb/daily_affirmation)
-[![Semaphore](https://semaphoreapp.com/api/v1/projects/7268def52c792e50bfc60e1b1a6e905ed4e2a80d/118940/shields_badge.png)](https://semaphoreapp.com/minter/daily_affirmation)
+[ ![Codeship Status for teamsnap/daily_affirmation](https://www.codeship.io/projects/70727b30-de01-0131-af05-5236ebb52643/status)](https://www.codeship.io/projects/24759)
 [![Code Climate](https://codeclimate.com/github/teamsnap/daily_affirmation.png)](https://codeclimate.com/github/teamsnap/daily_affirmation)
 [![Coverage Status](https://coveralls.io/repos/teamsnap/daily_affirmation/badge.png?branch=master)](https://coveralls.io/r/teamsnap/daily_affirmation?branch=master)
 [![Dependency Status](https://gemnasium.com/teamsnap/daily_affirmation.png)](https://gemnasium.com/teamsnap/daily_affirmation)
