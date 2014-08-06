@@ -135,6 +135,23 @@ describe DailyAffirmation do
     expect(affirmation2).to_not be_valid
   end
 
+  it "skips an affirmation for an :allow_nil option" do
+    cls = Class.new do
+      include DailyAffirmation.affirmations
+
+      affirms_format_of :name, :regex => /^\D+$/, :allow_nil => true
+    end
+
+    obj1 = double(:name => nil)
+    obj2 = double(:name => "name1")
+
+    affirmation1 = cls.new(obj1)
+    affirmation2 = cls.new(obj2)
+
+    expect(affirmation1).to be_valid
+    expect(affirmation2).to_not be_valid
+  end
+
   it "allows each affirmation to be inverted via an :inverse option" do
     cls = Class.new do
       include DailyAffirmation.affirmations
