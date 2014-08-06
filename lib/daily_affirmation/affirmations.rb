@@ -37,13 +37,7 @@ module DailyAffirmation
       attribute = affirmation[:attribute]
       args = affirmation.reject { |k, _| [:type, :attribute].include?(k) }
 
-      process_validation = if args.include?(:if)
-                             instance_eval(&args[:if])
-                           else
-                             true
-                           end
-
-      if process_validation
+      if ProcessAffirmationEvaluator.new(object, attribute, args).process?
         validator = Object.const_get(
           "DailyAffirmation::Validators::#{type.to_s.capitalize}Validator"
         )

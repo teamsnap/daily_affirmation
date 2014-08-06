@@ -1,3 +1,4 @@
+require_relative "daily_affirmation/process_affirmation_evaluator"
 require_relative "daily_affirmation/affirmations"
 require_relative "daily_affirmation/validators/absence_validator"
 require_relative "daily_affirmation/validators/acceptance_validator"
