@@ -119,6 +119,12 @@ module DailyAffirmation
         }.merge(opts)
       end
 
+      def affirms_valid_date(attribute, opts = {})
+        affirmations << {
+          :attribute => attribute, :type => :date
+        }.merge(opts)
+      end
+
       def affirms(attribute, opts = {})
         affirmations << {
           :attribute => attribute, :type => :custom
