@@ -98,20 +98,22 @@ describe DailyAffirmation do
         affirms_length_of :password, :range => 8..40
         affirms_numericality_of :age
         affirms_presence_of :name
+        affirms_valid_date :created_at
         affirms :name, :proc => Proc.new { |object|
           object.name == "Bobby Tabbles"
         }
       end
     end
 
-    it "correct sets up affirmations" do
+    it "correctly sets up affirmations" do
       obj = double(
         :conflicts => nil,
         :eula => true,
         :password => "test1234",
         :password_confirmation => "test1234",
         :age => 19,
-        :name => "Bobby Tabbles"
+        :name => "Bobby Tabbles",
+        :created_at => "1981-11-28"
       )
 
       affirmation = cls.new(obj)
