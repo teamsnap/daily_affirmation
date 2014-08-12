@@ -4,6 +4,7 @@ require_relative "daily_affirmation/validators/absence_validator"
 require_relative "daily_affirmation/validators/acceptance_validator"
 require_relative "daily_affirmation/validators/confirmation_validator"
 require_relative "daily_affirmation/validators/custom_validator"
+require_relative "daily_affirmation/validators/date_validator"
 require_relative "daily_affirmation/validators/equality_validator"
 require_relative "daily_affirmation/validators/exclusion_validator"
 require_relative "daily_affirmation/validators/format_validator"
@@ -14,6 +15,8 @@ require_relative "daily_affirmation/validators/presence_validator"
 require_relative "daily_affirmation/version"
 
 module DailyAffirmation
+  OptionError = Class.new(StandardError)
+
   def self.affirmations
     Module.new do
       def self.included(descendant)
