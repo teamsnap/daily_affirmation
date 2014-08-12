@@ -21,7 +21,11 @@ describe "Validator" do
   end
 
   context "i18n required" do
-    before(:all) { require "i18n" }
+    before(:all) do
+      require "i18n"
+      I18n.enforce_available_locales = false
+    end
+
     after(:all) { Object.send(:remove_const, :I18n) if defined?(I18n) }
 
     it "uses specific translation if available" do
