@@ -28,7 +28,7 @@ module DailyAffirmation
         args = opts.merge(
           {
             :default => [
-              :"daily_affirmation.errors.messages.#{type}", default
+              :"daily_affirmation.errors.messages.#{type}.default", default
             ],
             :attribute => attribute,
             :value => value

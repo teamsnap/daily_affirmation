@@ -2,4 +2,5 @@ en:
   daily_affirmation:
     errors:
       messages:
-        none: "egads man, you must have %{attribute} (%{range}, %{value})"
+        none:
+          default: "egads man, you must have %{attribute} (%{range}, %{value})"
