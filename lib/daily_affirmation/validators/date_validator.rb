@@ -4,7 +4,7 @@ module DailyAffirmation
   module Validators
     class DateValidator < Validator
       def valid?
-        @valid ||= parseable?
+        @valid ||= parseable? && before? && after?
       end
 
       def error_message
@@ -23,6 +23,22 @@ module DailyAffirmation
 
       def as
         opts.fetch(:as, :date)
+      end
+
+      def before?
+        if opts[:before]
+          value < opts[:before]
+        else
+          true
+        end
+      end
+
+      def after?
+        if opts[:after]
+          value > opts[:after]
+        else
+          true
+        end
       end
 
       def klass

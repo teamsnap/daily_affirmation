@@ -132,4 +132,32 @@ describe "DateValidator" do
       }.to raise_error(DailyAffirmation::OptionError)
     end
   end
+
+  context "the :before option is passed" do
+    it "passes validation if the date is before the date passed in :before" do
+      obj = double(:created_at => Date.today.prev_year(2))
+      validator = subject.new(obj, :created_at, :before => Date.today.prev_year)
+      expect(validator).to be_valid
+    end
+
+    it "fails validation if the date is after the date passed in :before" do
+      obj = double(:created_at => Date.today)
+      validator = subject.new(obj, :created_at, :before => Date.today.prev_year)
+      expect(validator).to_not be_valid
+    end
+  end
+
+  context "the :after option is passed" do
+    it "fails validation if the date is before the date passed in :after" do
+      obj = double(:created_at => Date.today.prev_year(2))
+      validator = subject.new(obj, :created_at, :after => Date.today.prev_year)
+      expect(validator).to_not be_valid
+    end
+
+    it "passes validation if the date is after the date passed in :after" do
+      obj = double(:created_at => Date.today)
+      validator = subject.new(obj, :created_at, :after => Date.today.prev_year)
+      expect(validator).to be_valid
+    end
+  end
 end
