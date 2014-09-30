@@ -145,14 +145,6 @@ describe "DateValidator" do
       validator = subject.new(obj, :created_at, :before => Date.today.prev_year)
       expect(validator).to_not be_valid
     end
-
-    it "allows a proc to be passed into before" do
-      obj = double(:created_at => Date.today.prev_year(2))
-      validator = subject.new(
-        obj, :created_at, :before => ->{ Date.today.prev_year }
-      )
-      expect(validator).to be_valid
-    end
   end
 
   context "the :after option is passed" do
@@ -165,14 +157,6 @@ describe "DateValidator" do
     it "passes validation if the date is after the date passed in :after" do
       obj = double(:created_at => Date.today)
       validator = subject.new(obj, :created_at, :after => Date.today.prev_year)
-      expect(validator).to be_valid
-    end
-
-    it "allows a proc to be passed into after" do
-      obj = double(:created_at => Date.today)
-      validator = subject.new(
-        obj, :created_at, :after => ->{ Date.today.prev_year }
-      )
       expect(validator).to be_valid
     end
   end

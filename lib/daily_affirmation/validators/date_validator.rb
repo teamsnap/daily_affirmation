@@ -25,33 +25,17 @@ module DailyAffirmation
         opts.fetch(:as, :date)
       end
 
-      def before
-        if opts[:before] && opts[:before].respond_to?(:call)
-          opts[:before].call
-        else
-          opts[:before]
-        end
-      end
-
       def before?
-        if before
-          value < before
+        if opts[:before]
+          value < opts[:before]
         else
           true
         end
       end
 
-      def after
-        if opts[:after] && opts[:after].respond_to?(:call)
-          opts[:after].call
-        else
-          opts[:after]
-        end
-      end
-
       def after?
-        if after
-          value > after
+        if opts[:after]
+          value > opts[:after]
         else
           true
         end
