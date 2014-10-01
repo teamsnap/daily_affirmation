@@ -3,6 +3,11 @@ require_relative "../validator"
 module DailyAffirmation
   module Validators
     class DateValidator < Validator
+      class NullDateLike
+        def <(val); true; end
+        def >(val); true; end
+      end
+
       def valid?
         @valid ||= parseable? && before? && after?
       end
@@ -25,20 +30,26 @@ module DailyAffirmation
         opts.fetch(:as, :date)
       end
 
+      def before
+        @before ||= -> {
+          val = opts.fetch(:before, NullDateLike.new)
+          val.respond_to?(:call) ? val.call : val
+        }.call
+      end
+
       def before?
-        if opts[:before]
-          value < opts[:before]
-        else
-          true
-        end
+        before > value
+      end
+
+      def after
+        @after ||= -> {
+          val = opts.fetch(:after, NullDateLike.new)
+          val.respond_to?(:call) ? val.call : val
+        }.call
       end
 
       def after?
-        if opts[:after]
-          value > opts[:after]
-        else
-          true
-        end
+        after < value
       end
 
       def klass
