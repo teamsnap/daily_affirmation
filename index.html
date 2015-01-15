@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Daily affirmation : A simple library for external validations of POROs">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Daily affirmation</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/teamsnap/daily_affirmation">View on GitHub</a>
+
+          <h1 id="project_title">Daily affirmation</h1>
+          <h2 id="project_tagline">A simple library for external validations of POROs</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/teamsnap/daily_affirmation/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/teamsnap/daily_affirmation/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="dailyaffirmation" class="anchor" href="#dailyaffirmation" aria-hidden="true"><span class="octicon octicon-link"></span></a>DailyAffirmation</h1>
+
+<p><a href="https://www.codeship.io/projects/24759"><img src="https://www.codeship.io/projects/70727b30-de01-0131-af05-5236ebb52643/status" alt="Codeship Status for teamsnap/daily_affirmation"></a></p>
+
+<p><a href="http://badge.fury.io/rb/daily_affirmation"><img src="https://badge.fury.io/rb/daily_affirmation.png" alt="Gem Version"></a>
+<a href="https://codeclimate.com/github/teamsnap/daily_affirmation"><img src="https://codeclimate.com/github/teamsnap/daily_affirmation.png" alt="Code Climate"></a>
+<a href="https://coveralls.io/r/teamsnap/daily_affirmation?branch=master"><img src="https://coveralls.io/repos/teamsnap/daily_affirmation/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/teamsnap/daily_affirmation"><img src="https://gemnasium.com/teamsnap/daily_affirmation.png" alt="Dependency Status"></a>
+<a href="http://opensource.org/licenses/MIT"><img src="http://img.shields.io/license/MIT.png?color=green" alt="License"></a></p>
+
+<p><a href="http://www.rubydoc.info/github/teamsnap/daily_affirmation">Documentation</a></p>
+
+<p>A simple library for external validations of POROs</p>
+
+<p><img src="http://i.imgur.com/rdvgFAK.jpg" alt="Daily Affirmation"></p>
+
+<p>There are currently two ways to validate objects in Rails, ActiveRecord based validates and ActiveModel based validations. Both require them to be placed directly into your models, making for more heavy weight, less flexible code. DailyAffirmation allows you to validate your models (or any PORO) externally.</p>
+
+<p>By validating objects externally, you can have different validations depending on your code path. Perhaps you require a password for a User object when it's being created, but do not need it again when it's being updated. Simply create a UserCreationAffirmation and a UserChangeAffirmation with the correct validations.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'daily_affirmation'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install daily_affirmation
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">"</span>daily_affirmations<span class="pl-pds">"</span></span>
+
+<span class="pl-k">class</span> <span class="pl-en">Team</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:name</span>, <span class="pl-c1">:status_cd</span>
+<span class="pl-k">end</span>
+
+<span class="pl-k">class</span> <span class="pl-en">TeamAffirmation</span>
+  <span class="pl-k">include</span> <span class="pl-s3">DailyAffirmation</span>.affirmations
+
+  affirms_presence_of <span class="pl-c1">:name</span>
+  affirms_inclusion_of <span class="pl-c1">:status_cd</span>, <span class="pl-c1">:list</span> =&gt; <span class="pl-c1">0</span>..<span class="pl-c1">2</span>
+<span class="pl-k">end</span>
+
+team1 <span class="pl-k">=</span> <span class="pl-s3">OpenStruct</span>.<span class="pl-k">new</span>(<span class="pl-c1">:name</span> =&gt; <span class="pl-s1"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-c1">:status_cd</span> =&gt; <span class="pl-c1">3</span>)
+<span class="pl-s3">TeamAffirmation</span>.<span class="pl-k">new</span>(team1).valid? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Fork it ( <a href="http://github.com/teamsnap/daily_affirmation/fork">http://github.com/teamsnap/daily_affirmation/fork</a> )</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Daily affirmation maintained by <a href="https://github.com/teamsnap">teamsnap</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
