@@ -1,6 +1,6 @@
 # DailyAffirmation
 
-[ ![Codeship Status for teamsnap/daily_affirmation](https://www.codeship.io/projects/70727b30-de01-0131-af05-5236ebb52643/status)](https://www.codeship.io/projects/24759)
+[![Codeship Status for teamsnap/daily_affirmation](https://www.codeship.io/projects/70727b30-de01-0131-af05-5236ebb52643/status)](https://www.codeship.io/projects/24759)
 
 [![Gem Version](https://badge.fury.io/rb/daily_affirmation.png)](http://badge.fury.io/rb/daily_affirmation)
 [![Code Climate](https://codeclimate.com/github/teamsnap/daily_affirmation.png)](https://codeclimate.com/github/teamsnap/daily_affirmation)
