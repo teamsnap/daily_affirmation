@@ -6,7 +6,11 @@ module DailyAffirmation
     # @param object [Object] the object to validate.
     # @param attribute [Symbol] the attribute to validate. The object must
     #   `respond_to?` a method with the name `attribute` with no arguments.
-    # @param options [Hash] any special options related to the affirmation.
+    # @param opts [Hash] any special options related to the affirmation.
+    # @option opts [Proc] :if evaluated before affirmation to ensure we should
+    #   run validation.
+    # @option opts [true, false] :allow_nil determines if we skip validation of
+    #   `nil` valued attributes.
     #
     # @return [self]
     def initialize(object, attribute, opts = {})

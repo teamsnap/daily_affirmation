@@ -5,6 +5,9 @@ module DailyAffirmation
   module Validators
     # This affirmation ensures an attribute is not in the provided :list
     # option.
+    #
+    # @option opts [#include?] :list list of values the attribute must not
+    #   match.
     class ExclusionValidator < Validator
       def valid?
         @valid ||= !InclusionValidator.new(object, attribute, opts).valid?

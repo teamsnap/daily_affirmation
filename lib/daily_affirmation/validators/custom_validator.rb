@@ -3,6 +3,9 @@ require_relative "../validator"
 module DailyAffirmation
   module Validators
     # This affirmation accepts a :proc option and evaluates it's results.
+    #
+    # @option opts [Proc] :proc evaluated to determine if attribute should be
+    #   validated.
     class CustomValidator < Validator
       def valid?
         @valid ||= opts[:proc].call(object)

@@ -3,6 +3,8 @@ require_relative "../validator"
 module DailyAffirmation
   module Validators
     # This affirmation ensures an attribute matches the provided :regex option.
+    #
+    # @option opts [Regex] :regex the patten the attributes value must match.
     class FormatValidator < Validator
       def valid?
         @valid ||= !!opts[:regex].match(value)

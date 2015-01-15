@@ -5,6 +5,11 @@ module DailyAffirmation
     # This affirmation ensures an attribute is a date and if a :before or
     # :after option is given, that the attribute is before or after the
     # selected date.
+    #
+    # @option opts [Date] :before if present checked to ensure value is before
+    #   provided date.
+    # @option opts [Date] :after if present checked to ensure value is after
+    #   provided date.
     class DateValidator < Validator
       class NullDateLike
         def <(val); true; end

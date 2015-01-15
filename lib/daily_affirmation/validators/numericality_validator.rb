@@ -5,6 +5,11 @@ module DailyAffirmation
     # This affirmation ensures an attribute is a Number and if the
     # :greater_than or :less_then option is given, that the attribute is
     # greater than or less than the value provided.
+    #
+    # @option opts [Numeric] :greater_than the value the attribute's value must
+    #   be greater than.
+    # @option opts [Numeric] :less_than the value the attribute's value must be
+    #   less than.
     class NumericalityValidator < Validator
       def valid?
         @valid ||= value ? numeric? && greater_than? && less_than? : true

@@ -3,6 +3,8 @@ require_relative "../validator"
 module DailyAffirmation
   module Validators
     # This affirmation ensures an attribute is in the provided :list option.
+    #
+    # @option opts [#include?] :list list of values the attribute must match.
     class InclusionValidator < Validator
       def valid?
         @valid ||= opts[:list].include?(value)
