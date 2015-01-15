@@ -4,14 +4,26 @@ module DailyAffirmation
       descendant.extend(ClassMethods)
     end
 
+    # Creates a new instance of the validator.
+    #
+    # @param object [Object] the object to validate.
+    # @return [self]
     def initialize(object)
       self.object = object
     end
 
+    # Tells you if the object is valid based on the affirmations.
+    #
+    # @return [true, false]
     def valid?
       validate[0]
     end
 
+    # Returns an array of length 2 telling you if the object is valid, along
+    # with any error messages.
+    #
+    # @return [Array(Boolean, Array<String>)] Array of length 2 containing
+    #   validation results.
     def validate
       @validate ||= [
         affirmations.map(&:first).all?,
@@ -19,6 +31,9 @@ module DailyAffirmation
       ]
     end
 
+    # Returns an array of error message if any, otherwise an empty array.
+    #
+    # @return [Array<String>]
     def error_messages
       validate[1]
     end

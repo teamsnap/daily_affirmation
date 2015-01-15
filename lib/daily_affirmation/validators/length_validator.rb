@@ -2,6 +2,8 @@ require_relative "../validator"
 
 module DailyAffirmation
   module Validators
+    # This affirmation ensures an attribute's size is within the provided
+    # :range option.
     class LengthValidator < Validator
       def valid?
         @valid ||= opts[:range].include?(value.size)

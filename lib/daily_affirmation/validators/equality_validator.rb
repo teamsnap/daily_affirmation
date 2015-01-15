@@ -2,6 +2,8 @@ require_relative "../validator"
 
 module DailyAffirmation
   module Validators
+    # This affirmation ensures an attribute is equal to the :value option
+    # given.
     class EqualityValidator < Validator
       def valid?
         @valid ||= (opts[:value] == value)

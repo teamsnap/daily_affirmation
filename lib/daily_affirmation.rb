@@ -17,6 +17,7 @@ require_relative "daily_affirmation/version"
 module DailyAffirmation
   OptionError = Class.new(StandardError)
 
+  # Include DailyAffirmation.affirmations to make your object a validator.
   def self.affirmations
     Module.new do
       def self.included(descendant)

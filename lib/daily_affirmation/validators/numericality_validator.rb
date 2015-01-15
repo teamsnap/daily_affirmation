@@ -2,6 +2,9 @@ require_relative "../validator"
 
 module DailyAffirmation
   module Validators
+    # This affirmation ensures an attribute is a Number and if the
+    # :greater_than or :less_then option is given, that the attribute is
+    # greater than or less than the value provided.
     class NumericalityValidator < Validator
       def valid?
         @valid ||= value ? numeric? && greater_than? && less_than? : true

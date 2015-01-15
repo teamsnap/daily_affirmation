@@ -2,6 +2,8 @@ require_relative "../validator"
 
 module DailyAffirmation
   module Validators
+    # This affirmation ensures a related attribute *_confirmation has the same
+    # value.
     class ConfirmationValidator < Validator
       def valid?
         @valid ||= value == object.send("#{attribute}_confirmation")

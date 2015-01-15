@@ -2,6 +2,7 @@ require_relative "../validator"
 
 module DailyAffirmation
   module Validators
+    # This affirmation ensures an attribute is present.
     class PresenceValidator < Validator
       def valid?
         @valid ||= present?

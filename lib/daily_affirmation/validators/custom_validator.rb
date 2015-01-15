@@ -2,6 +2,7 @@ require_relative "../validator"
 
 module DailyAffirmation
   module Validators
+    # This affirmation accepts a :proc option and evaluates it's results.
     class CustomValidator < Validator
       def valid?
         @valid ||= opts[:proc].call(object)
