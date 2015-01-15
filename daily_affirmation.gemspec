@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["oss@teamsnap.com"]
   spec.description   = "A simple library for external validations of POROs"
   spec.summary       = "A simple library for external validations of POROs"
-  spec.homepage      = "https://github.com/teamsnap/daily_affirmation"
+  spec.homepage      = "http://teamsnap.github.io/daily_affirmation"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
