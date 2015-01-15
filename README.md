@@ -8,6 +8,8 @@
 [![Dependency Status](https://gemnasium.com/teamsnap/daily_affirmation.png)](https://gemnasium.com/teamsnap/daily_affirmation)
 [![License](http://img.shields.io/license/MIT.png?color=green)](http://opensource.org/licenses/MIT)
 
+[Documentation](http://www.rubydoc.info/github/teamsnap/daily_affirmation)
+
 A simple library for external validations of POROs
 
 ![Daily Affirmation](http://i.imgur.com/rdvgFAK.jpg)
