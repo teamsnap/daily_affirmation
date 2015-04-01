@@ -154,6 +154,23 @@ describe DailyAffirmation do
     expect(affirmation2).to_not be_valid
   end
 
+  it "skips an affirmation for an :allow_blank option" do
+    cls = Class.new do
+      include DailyAffirmation.affirmations
+
+      affirms_inclusion_of :name, :list => ["name1"], :allow_blank => true
+    end
+
+    obj1 = double(:name => "")
+    obj2 = double(:name => "name2")
+
+    affirmation1 = cls.new(obj1)
+    affirmation2 = cls.new(obj2)
+
+    expect(affirmation1).to be_valid
+    expect(affirmation2).to_not be_valid
+  end
+
   it "allows each affirmation to be inverted via an :inverse option" do
     cls = Class.new do
       include DailyAffirmation.affirmations

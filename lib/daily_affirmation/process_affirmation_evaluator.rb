@@ -6,7 +6,7 @@ class ProcessAffirmationEvaluator
   end
 
   def process?
-    if_statement_passes? && allow_nil_passes?
+    if_statement_passes? && allow_nil_passes? && allow_blank_passes?
   end
 
   private
@@ -16,6 +16,18 @@ class ProcessAffirmationEvaluator
   def if_statement_passes?
     if args.include?(:if)
       instance_eval(&args[:if])
+    else
+      true
+    end
+  end
+
+  def allow_blank_passes?
+    if args.include?(:allow_blank)
+      if object.send(attribute) == ""
+        false
+      else
+        true
+      end
     else
       true
     end
