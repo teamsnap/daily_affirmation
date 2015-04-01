@@ -11,6 +11,8 @@ module DailyAffirmation
     #   run validation.
     # @option opts [true, false] :allow_nil determines if we skip validation of
     #   `nil` valued attributes.
+    # @option opts [true, false] :allow_blank determines if we skip validation
+    #   of `""` valued attributes.
     #
     # @return [self]
     def initialize(object, attribute, opts = {})
