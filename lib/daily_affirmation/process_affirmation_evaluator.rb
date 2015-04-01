@@ -21,9 +21,18 @@ class ProcessAffirmationEvaluator
     end
   end
 
+  def blank?(val)
+    case val
+    when String
+      val !~ /[^[:space:]]/
+    else
+      val.respond_to?(:empty?) ? val.empty? : !val
+    end
+  end
+
   def allow_blank_passes?
     if args.include?(:allow_blank)
-      if object.send(attribute) == ""
+      if blank?(object.send(attribute))
         false
       else
         true
