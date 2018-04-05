@@ -11,30 +11,11 @@ describe "DateValidator" do
   subject { DailyAffirmation::Validators::DateValidator }
 
   context ":as is unset" do
-    it "passes validation if the attribute is a valid date" do
-      obj1 = double(:created_at => Date.today)
-      obj2 = double(:created_at => Date.today.to_s)
+    it "passes validation if the attribute is unset" do
+      obj1 = double(:created_at => nil)
 
       validator1 = subject.new(obj1, :created_at)
-      validator2 = subject.new(obj2, :created_at)
       expect(validator1).to be_valid
-      expect(validator2).to be_valid
-    end
-
-    it "fails validation if the attribute is an invalid date" do
-      obj = double(:created_at => "Invalid Date")
-
-      validator = subject.new(obj, :created_at)
-      expect(validator).to_not be_valid
-    end
-
-    it "has the correct error message" do
-      obj = double(:created_at => "Invalid Date")
-
-      validator = subject.new(obj, :created_at)
-      expect(validator.error_message).to eq(
-        "created_at is not a valid date"
-      )
     end
   end
 

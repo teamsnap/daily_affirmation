@@ -17,7 +17,7 @@ module DailyAffirmation
       end
 
       def valid?
-        @valid ||= parseable? && before? && after?
+        @valid ||= value ? parseable? && before? && after? : true
       end
 
       def error_message
