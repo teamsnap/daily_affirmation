@@ -47,10 +47,10 @@ describe "Validator" do
       cls = Class.new(DailyAffirmation::Validator) do
         def valid?; false; end
       end
-      obj = double(:age => 13)
+      obj = double(:favorite_number => 13)
 
-      expect(cls.new(obj, :age, :range => 10..20).error_message).to eq(
-        "egads man, you must have age (10..20, 13)"
+      expect(cls.new(obj, :favorite_number, :range => 10..20).error_message).to eq(
+        "egads man, you must have favorite_number (10..20, 13)"
       )
     end
 
